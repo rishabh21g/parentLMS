@@ -1,8 +1,8 @@
-import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import Login from "../components/Login";
+import { useAuth } from "../context/AuthContext";
 import colors from "../css/root";
 export default function Index() {
   const router = useRouter();
@@ -10,11 +10,13 @@ export default function Index() {
 
   //check token
   useEffect(() => {
-    if (!loading) {
-      if (authToken) {
-        router.replace("/(main)/home");
+    setTimeout(() => {
+      if (!loading) {
+        if (authToken) {
+          router.push("/home");
+        }
       }
-    }
+    }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authToken, loading]);
 
