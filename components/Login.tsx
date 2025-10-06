@@ -4,21 +4,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import uuid from "react-native-uuid";
 
-
-import { validateInputsLog } from "../../utils/inputChecker";
+import colors from "../css/root";
+import { validateInputsLog } from "../utils/inputChecker";
 
 const Login = () => {
   const [email, setemail] = useState("");
@@ -27,23 +28,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-
   // handle login dummy code
   const handleLogin = async () => {
     setloading(true);
-    // const user = { email, password };
     try {
-      // const response = await axios.post(
-      //   "http://192.168.117.43:4000/api/user/login",
-      //   user
-      // );
-
-      // const token = response.data.token;
-      // const userDetails = {
-      //   name: response.data.userName,
-      //   email: response.data.email,
-      //   userID: response.data.userID,
-      // };
       const token = "hfiudshfuidhfuieh2734877";
       const userDetails = {
         email: email,
@@ -52,82 +40,85 @@ const Login = () => {
       };
 
       if (token) {
-        //Update Local Storage
+        // Update Local Storage
         await AsyncStorage.setItem("authToken", token);
         await AsyncStorage.setItem("userDetails", JSON.stringify(userDetails));
-        // Update context (AuthProvider)
-       
         Alert.alert("Login Successfully");
-        
+        router.push("/(main)/home")
       }
       setemail("");
       setpassword("");
     } catch (err) {
       Alert.alert("Login failed");
-      console.log("Error while loggin in " );
+      console.log("Error while logging in", err);
     } finally {
       setloading(false);
     }
   };
 
   return (
-    <SafeAreaView className="flex-1 px-6 justify-center bg-dark">
+    <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         keyboardVerticalOffset={50}
-        className="flex-1 justify-center"
+        style={styles.keyboard}
       >
-        {/* Logo */}
-        <View className="items-center mb-10">
-          <Text className="mt-5 text-2xl font-semibold text-dark">
-            Login to your account
-          </Text>
+        {/* Logo / Title */}
+        <View style={styles.logoContainer}>
+          <Text style={styles.title}>Login to your account</Text>
         </View>
 
         {/* Email Input */}
-        <View className="flex-row items-center rounded-xl px-3 mb-5 h-12 shadow-primary bg-secondary">
-          <MaterialIcons name="email" size={22} color="#f49b33" />
+        <View style={styles.inputContainer}>
+          <MaterialIcons name="email" size={22} color={colors.primary[400]} />
           <TextInput
             placeholder="Enter your email"
             onChangeText={(text) => setemail(text.trim())}
             value={email}
             keyboardType="email-address"
-            className="flex-1 ml-2 text-sm text-dark placeholder-dark-icon"
-            placeholderTextColor="#9BA1A6"
+            style={styles.input}
+            placeholderTextColor={colors.neutral[200]}
+            autoCapitalize="none"
           />
         </View>
 
         {/* Password Input */}
-        <View className="flex-row items-center rounded-xl px-3 mb-3 h-12 shadow-primary bg-secondary">
-          <MaterialIcons name="lock" size={22} color="#f49b33" />
+        <View style={styles.inputContainer}>
+          <MaterialIcons name="lock" size={22} color={colors.primary[400]} />
           <TextInput
             secureTextEntry={!showPassword}
             placeholder="Enter your password"
             value={password}
             onChangeText={(text) => setpassword(text)}
-            className="flex-1 ml-2 text-sm text-dark placeholder-dark-icon"
-            placeholderTextColor="#9BA1A6"
+            style={styles.input}
+            placeholderTextColor={colors.neutral[200]}
           />
-          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}
+            style={styles.eyeButton}
+            accessibilityLabel={showPassword ? "Hide password" : "Show password"}
+          >
             <MaterialIcons
               name={!showPassword ? "visibility-off" : "visibility"}
               size={22}
-              color="#f49b33"
+              color={colors.primary[400]}
             />
           </TouchableOpacity>
         </View>
 
-        {/* Forget / Keep me Logged in */}
-        <View className="flex-row justify-between mb-8 px-1">
-          <Text className="text-[12px] italic text-dark-icon">
-            Keep me logged in
-          </Text>
+        {/* Keep me logged in */}
+        <View style={styles.row}>
+          <Text style={styles.keepText}>Keep me logged in</Text>
         </View>
 
         {/* Login Button */}
         <Pressable
           disabled={loading}
-          className="h-12 rounded-xl justify-center items-center bg-primary"
+          style={({ pressed }) => [
+            styles.button,
+            loading && styles.buttonDisabled,
+            pressed && styles.buttonPressed,
+          ]}
           onPress={() => {
             const checkResult = validateInputsLog(email, password);
             if (checkResult) handleLogin();
@@ -136,12 +127,91 @@ const Login = () => {
           {loading ? (
             <ActivityIndicator size="small" color="#fff" />
           ) : (
-            <Text className="text-base font-semibold text-white">Login</Text>
+            <Text style={styles.buttonText}>Login</Text>
           )}
         </Pressable>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    paddingHorizontal: 24,
+    justifyContent: "center",
+    backgroundColor: colors.ui.background,
+  },
+  keyboard: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  logoContainer: {
+    alignItems: "center",
+    marginBottom: 40,
+  },
+  title: {
+    marginTop: 8,
+    fontSize: 20,
+    fontWeight: "600",
+    color: colors.ui.textPrimary,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    marginBottom: 16,
+    height: 48,
+    backgroundColor: colors.secondary[700],
+    // subtle shadow
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  input: {
+    flex: 1,
+    marginLeft: 8,
+    fontSize: 14,
+    color: colors.ui.textPrimary,
+    paddingVertical: 8,
+  },
+  eyeButton: {
+    paddingLeft: 8,
+    paddingVertical: 6,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    paddingHorizontal: 2,
+  },
+  keepText: {
+    fontSize: 12,
+    fontStyle: "italic",
+    color: colors.ui.textSecondary,
+  },
+  button: {
+    height: 48,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.button.primary.bg,
+    color: colors.button.primary.text
+  },
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+  buttonPressed: {
+    opacity: 0.9,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: colors.button.primary.text || "#fff",
+  },
+});
 
 export default Login;

@@ -1,5 +1,5 @@
 
-export const colors = {
+ const colors = {
 	// Core brand tones
 	primary: {
 		900: '#062E1A', // very dark green

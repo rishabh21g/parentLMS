@@ -6,12 +6,11 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [userDetails, setuserDetails] = useState({
-    name: null,
-    email: null,
-    userID: null
+    name: "Logicknots",
+    email: "logicknot@zohomail.in",
   });
 
-  const [authToken, setauthToken] = useState(null);
+  const [authToken, setauthToken] = useState("123456789");
   const [loading, setloading] = useState(false);
   const verifyAuthTokenandUser = async () => {
     setloading(true);
