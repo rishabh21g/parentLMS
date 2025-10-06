@@ -6,13 +6,12 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <StatusBar
-        barStyle={"dark-content"}
+        barStyle={"light-content"}
         translucent={false}
         animated={true}
-        networkActivityIndicatorVisible={true}
       />
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index"/>
+        <Stack.Screen name="index" />
       </Stack>
     </AuthProvider>
   );
