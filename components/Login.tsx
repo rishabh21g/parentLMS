@@ -22,21 +22,27 @@ import colors from "../css/root";
 import { validateInputsLog } from "../utils/inputChecker";
 
 const Login = () => {
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const [loading, setloading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [email, setemail] = useState<string>("");
+  const [password, setpassword] = useState<string>("");
+  const [loading, setloading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
 
+  // types
+  type UserDetails = {
+    email: string;
+    passsword: string;
+    userId: string;
+  };
   // handle login dummy code
-  const handleLogin = async () => {
+  const handleLogin = async (): Promise<void> => {
     setloading(true);
     try {
-      const token = "hfiudshfuidhfuieh2734877";
-      const userDetails = {
+      const token: string = "hfiudshfuidhfuieh2734877";
+      const userDetails: UserDetails = {
         email: email,
-        password: password,
-        userID: uuid.v4(),
+        passsword: password,
+        userId: uuid.v4(),
       };
 
       if (token) {
@@ -44,11 +50,11 @@ const Login = () => {
         await AsyncStorage.setItem("authToken", token);
         await AsyncStorage.setItem("userDetails", JSON.stringify(userDetails));
         Alert.alert("Login Successfully");
-        router.push("/(main)/home")
+        router.push("/(main)/home");
       }
       setemail("");
       setpassword("");
-    } catch (err) {
+    } catch (err : unknown) {
       Alert.alert("Login failed");
       console.log("Error while logging in", err);
     } finally {
@@ -73,7 +79,7 @@ const Login = () => {
           <MaterialIcons name="email" size={22} color={colors.primary[400]} />
           <TextInput
             placeholder="Enter your email"
-            onChangeText={(text) => setemail(text.trim())}
+            onChangeText={(text: string): void => setemail(text.trim())}
             value={email}
             keyboardType="email-address"
             style={styles.input}
@@ -89,14 +95,16 @@ const Login = () => {
             secureTextEntry={!showPassword}
             placeholder="Enter your password"
             value={password}
-            onChangeText={(text) => setpassword(text)}
+            onChangeText={(text: string): void => setpassword(text)}
             style={styles.input}
             placeholderTextColor={colors.neutral[200]}
           />
           <TouchableOpacity
-            onPress={() => setShowPassword(!showPassword)}
+            onPress={(): void => setShowPassword(!showPassword)}
             style={styles.eyeButton}
-            accessibilityLabel={showPassword ? "Hide password" : "Show password"}
+            accessibilityLabel={
+              showPassword ? "Hide password" : "Show password"
+            }
           >
             <MaterialIcons
               name={!showPassword ? "visibility-off" : "visibility"}
@@ -199,7 +207,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.button.primary.bg,
-    color: colors.button.primary.text
+    color: colors.button.primary.text,
   },
   buttonDisabled: {
     opacity: 0.6,

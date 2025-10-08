@@ -8,6 +8,7 @@ const AppLayout = () => {
       }}
     >
       <Stack.Screen name="home" options={{ title: "Home" }} />
+      <Stack.Screen name="profile" options={{ title: "Profile" }} />
     </Stack>
   );
 };
