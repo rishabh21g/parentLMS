@@ -1,7 +1,7 @@
 import { useResponsiveStyles } from "@/css/subject";
 import dummySubjects from "@/data/dummydata";
-import { useLocalSearchParams } from "expo-router";
-import React, { useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import React from "react";
 import {
   Text,
   TouchableOpacity,
@@ -9,16 +9,14 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import profile from "../../../css/dashboard";
 import { Subject as SubjectType } from "../../../types/subject";
 
 const Subject: React.FC = () => {
   const { ["subject-id"]: subjectID } = useLocalSearchParams();
   const id = Number(subjectID);
-
   const styles = useResponsiveStyles();
-  const { width } = useWindowDimensions();
-  const [showChapters, setShowChapters] = useState(false);
-
+  const { width, height } = useWindowDimensions();
   const subject: SubjectType | undefined = dummySubjects.find(
     (s) => s.id === id
   );
@@ -54,7 +52,20 @@ const Subject: React.FC = () => {
   const barHeight = 40;
 
   return (
-    <SafeAreaView style={[styles.container, { width }]}>
+    <SafeAreaView style={[styles.container, { width, height }]}>
+      <TouchableOpacity onPress={() => router.push("/profile")}>
+        <View style={[profile.header]}>
+          <View style={profile.profileSection}>
+            <View style={profile.avatar}>
+              <Text style={profile.avatarText}>S</Text>
+            </View>
+            <View style={profile.profileInfo}>
+              <Text style={profile.studentName}>Student Name</Text>
+              <Text style={profile.grade}>Grade 8 - Section A</Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
       <View style={styles.header}>
         <Text style={[styles.subjectTitle, { width: chartWidth }]}>
           {subject.name}
@@ -96,7 +107,7 @@ const Subject: React.FC = () => {
         </View>
 
         <View style={[styles.averageContainer, { width: chartWidth - 40 }]}>
-          <Text style={styles.averageLabel}>avg:</Text>
+          <Text style={styles.averageLabel}>Total Average:</Text>
           <View style={[styles.averageBar, { width: chartWidth - 160 }]}>
             <View style={[styles.averageProgress, { width: `${average}%` }]} />
           </View>
@@ -106,36 +117,10 @@ const Subject: React.FC = () => {
 
       <TouchableOpacity
         style={[styles.chaptersButton, { width: chartWidth }]}
-        onPress={() => setShowChapters(!showChapters)}
+        onPress={() => router.push(`/subjects/chapters/${subject.id}`)}
       >
-        <Text style={styles.chaptersButtonText}>
-          {showChapters ? "Hide Chapters" : "Show Chapters"}
-        </Text>
+        <Text style={styles.chaptersButtonText}>Chapters</Text>
       </TouchableOpacity>
-
-      {showChapters && (
-        <View style={[styles.chaptersContainer, { width: chartWidth }]}>
-          {subject.chapters.map((chapter) => (
-            <TouchableOpacity
-              key={chapter.id}
-              style={[styles.chapterCard, { width: chartWidth }]}
-              onPress={() => console.log(`Navigate to chapter ${chapter.id}`)}
-            >
-              <Text style={styles.chapterName}>{chapter.name}</Text>
-              <View style={styles.chapterStats}>
-                {["accuracy", "speed", "coverage", "comparison"].map((key) => (
-                  <View key={key} style={styles.statItem}>
-                    <Text style={styles.statLabel}>{key}</Text>
-                    <Text style={styles.statValue}>
-                      {chapter[key as keyof typeof chapter]}%
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
     </SafeAreaView>
   );
 };

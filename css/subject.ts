@@ -1,5 +1,5 @@
 import { StyleSheet, useWindowDimensions } from "react-native";
-import colors from "../css/root"; // Adjust path if different
+import colors from "../css/root";
 
 export const useResponsiveStyles = () => {
   const { width } = useWindowDimensions();
@@ -9,15 +9,16 @@ export const useResponsiveStyles = () => {
     container: {
       flex: 1,
       backgroundColor: colors.ui.background,
-      paddingVertical: 16,
       alignItems: "center",
+      paddingBlock: 20,
+    
     },
 
     header: {
       alignItems: "center",
       marginBottom: 20,
+      marginTop: 25,
     },
-
     subjectTitle: {
       fontSize: isSmallScreen ? 20 : 24,
       fontWeight: "700",
@@ -136,61 +137,6 @@ export const useResponsiveStyles = () => {
       fontSize: 14,
       textTransform: "uppercase",
       letterSpacing: 0.5,
-    },
-
-    chaptersContainer: {
-      width: "100%",
-      alignItems: "center",
-      gap: 12,
-      paddingBottom: 60,
-    },
-
-    chapterCard: {
-      backgroundColor: colors.ui.surface,
-      borderRadius: 10,
-      padding: 14,
-      borderWidth: 1,
-      borderColor: colors.border.default,
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 1 },
-      shadowOpacity: 0.05,
-      shadowRadius: 2,
-      elevation: 1,
-    },
-
-    chapterName: {
-      fontSize: 16,
-      fontWeight: "700",
-      color: colors.ui.textPrimary,
-      marginBottom: 8,
-    },
-
-    chapterStats: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
-    },
-
-    statItem: {
-      width: "48%",
-      marginBottom: 8,
-      backgroundColor: colors.ui.background,
-      borderRadius: 8,
-      paddingVertical: 6,
-      paddingHorizontal: 10,
-      alignItems: "center",
-    },
-
-    statLabel: {
-      fontSize: 12,
-      color: colors.ui.textSecondary,
-      marginBottom: 2,
-    },
-
-    statValue: {
-      fontSize: 14,
-      fontWeight: "700",
-      color: colors.ui.textPrimary,
     },
 
     errorText: {

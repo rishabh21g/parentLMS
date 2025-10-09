@@ -15,7 +15,7 @@ const Dashboard = () => {
   const { width } = useWindowDimensions();
   const isSmall = width < 380;
   const isTablet = width > 800;
-  const [subjects, setSubjects] = useState<object[]>(dummySubjects);
+  const [subjects] = useState<object[]>(dummySubjects);
 
   // const fetchSubjects = async () : Promise<void> => {
   //   try{
