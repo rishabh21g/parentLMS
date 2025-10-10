@@ -34,11 +34,7 @@ export const useResponsiveStyles = () => {
       backgroundColor: colors.ui.background,
       borderRadius: 12,
       padding: 16,
-      boxShadowColor: "#000",
-      boxShadowOffset: { width: 0, height: 2 },
-      boxShadowOpacity: 0.05,
-      boxShadowRadius: 4,
-      elevation: 2,
+    
     },
 
     sectionTitle: {

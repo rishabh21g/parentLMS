@@ -78,27 +78,38 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.ui.textPrimary,
     marginBottom: 15,
+    textAlign: 'center',
   },
-  progressContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+  progressBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    paddingHorizontal: 2, // Add some padding
   },
-  progressCircle: {
-    borderWidth: 6,
-    borderColor: colors.primary[500],
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 20,
-    backgroundColor: colors.ui.surface,
-  },
-  progressText: {
-    fontWeight: "bold",
-    color: colors.ui.textPrimary,
-  },
-  statsInfo: {
+  progressBarBackground: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-around",
+    height: 1, // Increase height for better visibility
+    backgroundColor: colors.neutral[600],
+    borderRadius: 8,
+    marginRight: 15, // Increase margin
+    overflow: 'hidden',
+    minWidth: 200, // Ensure minimum width on larger screens
+  },
+  progressBarFill: {
+    height: '100%',
+    backgroundColor: colors.primary[500],
+    borderRadius: 8,
+    minWidth: 2, 
+  },
+  progressPercentageText: {
+    fontSize: 18, // Increase font size for larger screens
+    fontWeight: 'bold',
+    color: colors.ui.textPrimary,
+    minWidth: 60, 
+  },
+  statsInfoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   statItem: {
     alignItems: "center",
@@ -169,6 +180,30 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.ui.muted,
   },
-  
+  subjectProgressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 8,
+  },
+  subjectProgressBackground: {
+    flex: 1,
+    height: 4, // Thin height
+    backgroundColor: colors.neutral[600],
+    borderRadius: 2,
+    marginRight: 8,
+    overflow: 'hidden',
+  },
+  subjectProgressFill: {
+    height: '100%',
+    borderRadius: 2,
+    minWidth: 1, // Ensure it's visible even at low percentages
+  },
+  subjectProgressText: {
+    fontSize: 10,
+    color: colors.ui.muted,
+    minWidth: 30,
+    textAlign: 'right',
+  },
 });
 export default styles

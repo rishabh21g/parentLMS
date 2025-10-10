@@ -16,21 +16,17 @@ const Dashboard = () => {
   const isSmall = width < 380;
   const isTablet = width > 800;
   const [subjects] = useState<object[]>(dummySubjects);
+  const totalChapters = subjects.reduce(
+    (sum, subject: any) => sum + subject.chapters.length,
+    0
+  );
+  const completedChapters = 35;
+  const overallProgress = Math.round(
+    subjects.reduce((sum, subject: any) => sum + subject.progress, 0) /
+      subjects.length
+  );
+ 
 
-  // const fetchSubjects = async () : Promise<void> => {
-  //   try{
-  //      const response = await axios.get("")
-  //      const subjects : any[] = response.data
-  //       setSubjects(subjects)
-  //   }catch(error : unknown){
-  //     console.error("Error fetching subjects:", error);
-  //   }
-  //   finally{}
-  // }
-
-  // useEffect(() => {
-  //   fetchSubjects();
-  // }, []);
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
@@ -57,52 +53,102 @@ const Dashboard = () => {
         <View
           style={[
             styles.overallStatsCard,
-            isTablet && { flexDirection: "row" },
+            isTablet && {
+              flexDirection: "column",
+              maxWidth: 600,
+              alignSelf: "center",
+            },
           ]}
         >
           <Text style={styles.cardTitle}>Overall Progress</Text>
-          <View style={[styles.progressContainer, isTablet && { flex: 1 }]}>
+
+          {/* Progress Bar */}
+          <View
+            style={[
+              styles.progressBarContainer,
+              isTablet && { paddingHorizontal: 10 },
+            ]}
+          >
             <View
               style={[
-                styles.progressCircle,
+                styles.progressBarBackground,
                 {
-                  width: isSmall ? 60 : 80,
-                  height: isSmall ? 60 : 80,
-                  borderRadius: isSmall ? 30 : 40,
+                  height: isTablet ? 20 : 16,
+                  minWidth: isTablet ? 300 : 200,
                 },
               ]}
             >
+              <View
+                style={[
+                  styles.progressBarFill,
+                  {
+                    width: `${overallProgress}%`,
+                    borderRadius: isTablet ? 10 : 8,
+                  },
+                ]}
+              />
+            </View>
+            <Text
+              style={[
+                styles.progressPercentageText,
+                { fontSize: isTablet ? 20 : 18 },
+              ]}
+            >
+              {overallProgress}%
+            </Text>
+          </View>
+
+          {/* Stats Info */}
+          <View
+            style={[
+              styles.statsInfoContainer,
+              isTablet && { paddingHorizontal: 40 },
+            ]}
+          >
+            <View style={styles.statItem}>
               <Text
-                style={[styles.progressText, { fontSize: isSmall ? 16 : 18 }]}
+                style={[
+                  styles.statValue,
+                  { fontSize: isSmall ? 18 : isTablet ? 24 : 20 },
+                ]}
               >
-                83%
+                {subjects.length}
+              </Text>
+              <Text
+                style={[styles.statLabel, { fontSize: isTablet ? 14 : 12 }]}
+              >
+                Total Subjects
               </Text>
             </View>
-            <View style={styles.statsInfo}>
-              <View style={styles.statItem}>
-                <Text
-                  style={[styles.statValue, { fontSize: isSmall ? 18 : 20 }]}
-                >
-                  6
-                </Text>
-                <Text style={styles.statLabel}>Subjects</Text>
-              </View>
-              <View style={styles.statItem}>
-                <Text
-                  style={[styles.statValue, { fontSize: isSmall ? 18 : 20 }]}
-                >
-                  42
-                </Text>
-                <Text style={styles.statLabel}>Chapters</Text>
-              </View>
-              <View style={styles.statItem}>
-                <Text
-                  style={[styles.statValue, { fontSize: isSmall ? 18 : 20 }]}
-                >
-                  35
-                </Text>
-                <Text style={styles.statLabel}>Completed</Text>
-              </View>
+            <View style={styles.statItem}>
+              <Text
+                style={[
+                  styles.statValue,
+                  { fontSize: isSmall ? 18 : isTablet ? 24 : 20 },
+                ]}
+              >
+                {totalChapters}
+              </Text>
+              <Text
+                style={[styles.statLabel, { fontSize: isTablet ? 14 : 12 }]}
+              >
+                Total Chapters
+              </Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text
+                style={[
+                  styles.statValue,
+                  { fontSize: isSmall ? 18 : isTablet ? 24 : 20 },
+                ]}
+              >
+                {completedChapters}
+              </Text>
+              <Text
+                style={[styles.statLabel, { fontSize: isTablet ? 14 : 12 }]}
+              >
+                Completed
+              </Text>
             </View>
           </View>
         </View>
@@ -135,7 +181,22 @@ const Dashboard = () => {
                 >
                   {subject.name}
                 </Text>
-  
+                <View style={styles.subjectProgressContainer}>
+                  <View style={styles.subjectProgressBackground}>
+                    <View
+                      style={[
+                        styles.subjectProgressFill,
+                        { 
+                          width: `${subject.overall.coverage}%`,
+                          backgroundColor: subject.color 
+                        },
+                      ]}
+                    />
+                  </View>
+                  <Text style={styles.subjectProgressText}>
+                    {subject.overall.coverage}%
+                  </Text>
+                </View>
               </TouchableOpacity>
             ))}
           </View>
