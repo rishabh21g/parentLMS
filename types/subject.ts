@@ -1,15 +1,19 @@
 export interface Chapter {
   id: number;
   name: string;
-  accuracy: number;
-  speed: number;
+  accuracyTest: number;
+  accuracyPractice: number;
+  speedTest: number;
+  speedPractice: number;
   coverage: number;
   comparison: number;
 }
 
 export interface OverallStats {
-  accuracy: number;
-  speed: number;
+  accuracyTest: number;
+  accuracyPractice: number;
+  speedTest: number;
+  speedPractice: number;
   coverage: number;
   comparison: number;
 }

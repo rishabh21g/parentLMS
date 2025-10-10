@@ -9,7 +9,7 @@ const CircleProgress: React.FC<{
   icon: React.ReactElement;
 }> = ({ percentage, color, label ,icon }) => {
   // Circle dimensions
-  const size = 150;
+  const size = 120;
   const strokeWidth = 10;
   const radius = (size - strokeWidth ) / 2; 
   const circumference = 2 * Math.PI * radius;
@@ -17,7 +17,7 @@ const CircleProgress: React.FC<{
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <View >
+    <View  style={{ alignItems: "center", margin: 10 , alignContent:"center"}}>
       {/* Circle */}
       <View >
         <Svg width={size} height={size}>
@@ -60,7 +60,7 @@ const CircleProgress: React.FC<{
           <Text
             style={{
               color: colors.ui.textPrimary,
-              fontSize: 28,
+              fontSize: 24,
               fontWeight: "700",
             }}
           >
@@ -74,7 +74,7 @@ const CircleProgress: React.FC<{
         <View style={{ alignItems: "center", flexDirection: "row", gap:10 }}>
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: "600",
               color: colors.ui.textSecondary,
             }}
