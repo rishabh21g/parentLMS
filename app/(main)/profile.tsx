@@ -1,5 +1,3 @@
-import PerformanceStat from "@/components/PerformanceStats";
-import StarRating from "@/components/StarRating";
 import { ApiResponse } from "@/types/api";
 import { PerformanceStats } from "@/types/performanceStats";
 import { UserProfile } from "@/types/user";
@@ -26,7 +24,6 @@ const Profile: React.FC = () => {
   const { width } = useWindowDimensions();
   const scale = width / 375;
   const normalize = (size: number) => Math.round(size * scale);
-  // --- Fetch user data ---
   const fetchUserProfile = async (): Promise<void> => {
     try {
       setLoading(true);
@@ -47,6 +44,7 @@ const Profile: React.FC = () => {
       setUserProfile(dummyData.user);
       setPerformanceStats(dummyData.performance);
     } catch (err: unknown) {
+      console.log(err);
       Alert.alert("Error", "Failed to load profile data");
     } finally {
       setLoading(false);
@@ -56,8 +54,6 @@ const Profile: React.FC = () => {
   useEffect(() => {
     fetchUserProfile();
   }, []);
-
-  // --- Conditional UI ---
   if (loading)
     return (
       <SafeAreaView style={profileStyles.container}>
@@ -81,8 +77,6 @@ const Profile: React.FC = () => {
         </View>
       </SafeAreaView>
     );
-
-  // --- Main UI ---
   return (
     <SafeAreaView style={profileStyles.container}>
       <ScrollView
@@ -147,49 +141,6 @@ const Profile: React.FC = () => {
             >
               {userProfile.phoneNumber}
             </Text>
-          </View>
-
-          {/* Rating */}
-          <View style={profileStyles.ratingSection}>
-            <Text
-              style={[profileStyles.ratingLabel, { fontSize: normalize(15) }]}
-            >
-              Overall Performance
-            </Text>
-            <View style={profileStyles.ratingContainer}>
-              <StarRating rating={performanceStats.overallRating} />
-              <Text
-                style={[profileStyles.ratingValue, { fontSize: normalize(16) }]}
-              >
-                {performanceStats.overallRating.toFixed(1)}
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Stats */}
-        <View style={profileStyles.statsContainer}>
-          <Text
-            style={[profileStyles.sectionTitle, { fontSize: normalize(16) }]}
-          >
-            Performance Statistics
-          </Text>
-          <View style={profileStyles.statsGrid}>
-            <PerformanceStat
-              label="Coverage"
-              value={performanceStats.coverage}
-              icon="assessment"
-            />
-            <PerformanceStat
-              label="Speed"
-              value={performanceStats.speed}
-              icon="speed"
-            />
-            <PerformanceStat
-              label="Accuracy"
-              value={performanceStats.accuracy}
-              icon="check-circle"
-            />
           </View>
         </View>
       </ScrollView>

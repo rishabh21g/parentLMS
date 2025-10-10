@@ -29,11 +29,6 @@ const loginStyle = StyleSheet.create({
     marginBottom: 16,
     height: 48,
     backgroundColor: colors.secondary[700],
-    // subtle shadow
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 2,
     elevation: 2,
   },
   input: {
@@ -78,4 +73,4 @@ const loginStyle = StyleSheet.create({
     color: colors.button.primary.text || "#fff",
   },
 });
-export default loginStyle
+export default loginStyle;

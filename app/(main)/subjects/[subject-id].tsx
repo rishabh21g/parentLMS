@@ -5,20 +5,18 @@ import { StatItem } from "@/types/performanceStats";
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
   Text,
-  TouchableOpacity,
   View,
-  useWindowDimensions,
+  useWindowDimensions
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import profile from "../../../css/dashboard";
 import { Subject as SubjectType } from "../../../types/subject";
 
 const Subject: React.FC = () => {
-  const { ["subject-id"]: subjectID } = useLocalSearchParams();
+  const { "subject-id": subjectID } = useLocalSearchParams();
   const id = Number(subjectID);
   const styles = useResponsiveStyles();
   const { width, height } = useWindowDimensions();
@@ -77,21 +75,6 @@ const Subject: React.FC = () => {
 
   return (
     <SafeAreaView style={[styles.container, { width, height }]}>
-      {/* Profile Header */}
-      <TouchableOpacity onPress={() => router.push("/profile")}>
-        <View style={[profile.header]}>
-          <View style={profile.profileSection}>
-            <View style={profile.avatar}>
-              <Text style={profile.avatarText}>S</Text>
-            </View>
-            <View style={profile.profileInfo}>
-              <Text style={profile.studentName}>Student Name</Text>
-              <Text style={profile.grade}>Grade 8 - Section A</Text>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
-
       {/* Subject Name */}
       <View style={styles.header}>
         <Text style={styles.subjectTitle}>{subject.name}</Text>
@@ -124,13 +107,7 @@ const Subject: React.FC = () => {
         </View>
       </View>
 
-      {/* Chapters Button */}
-      <TouchableOpacity
-        style={styles.chaptersButton}
-        onPress={() => router.push(`/subjects/chapters/${subject.id}`)}
-      >
-        <Text style={styles.chaptersButtonText}>Chapters</Text>
-      </TouchableOpacity>
+   
     </SafeAreaView>
   );
 };

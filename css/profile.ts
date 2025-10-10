@@ -47,10 +47,8 @@ const profileStyles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
+    boxShadow: "#000",
+
     elevation: 2,
   },
   profilePictureContainer: {
@@ -134,62 +132,6 @@ const profileStyles = StyleSheet.create({
     color: colors.ui.textPrimary,
     marginBottom: 12,
     textAlign: "center",
-  },
-
-  statsGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between", // spread cards evenly
-    paddingHorizontal: 10,
-  },
-
-  statCard: {
-    width: "47%", // 2 per row with spacing
-    backgroundColor: colors.ui.surface,
-    borderRadius: 10,
-    padding: 14,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: colors.border.default,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-
-  statIcon: {
-    alignSelf: "center",
-    marginBottom: 4,
-  },
-
-  statLabel: {
-    fontSize: 12,
-    fontWeight: "600",
-    color: colors.ui.textSecondary,
-    textAlign: "center",
-    marginBottom: 4,
-  },
-
-  statValue: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: colors.ui.textPrimary,
-    textAlign: "center",
-    marginBottom: 8,
-  },
-
-  progressBar: {
-    height: 4,
-    backgroundColor: colors.neutral[700],
-    borderRadius: 2,
-    overflow: "hidden",
-  },
-
-  progressFill: {
-    height: "100%",
-    backgroundColor: colors.primary[500],
-    borderRadius: 2,
   },
 });
 

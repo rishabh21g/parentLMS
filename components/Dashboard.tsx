@@ -120,7 +120,7 @@ const Dashboard = () => {
                   styles.subjectCard,
                   { width: isTablet ? "30%" : isSmall ? "100%" : "48%" },
                 ]}
-                onPress={() => router.push(`/(main)/subjects/${subject.id}`)}
+                onPress={() => router.push(`/subjects/${subject.id}`)}
               >
                 <View
                   style={[

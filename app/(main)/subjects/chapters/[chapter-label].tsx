@@ -1,12 +1,12 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-const ChapterStats = () => {
+const ChapterLable = () => {
   return (
     <View>
-      <Text>ChapterStats</Text>
+      <Text>ChapterLable</Text>
     </View>
   )
 }
 
-export default ChapterStats
+export default ChapterLable
