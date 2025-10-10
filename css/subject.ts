@@ -47,8 +47,6 @@ export const useResponsiveStyles = () => {
 
     // CIRCULAR CHART STYLES
     chartContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
       justifyContent: "center",
       alignItems: "center",
       width: "100%",

@@ -8,8 +8,10 @@ export interface PerformanceStats {
 }
 
  export interface StatItem {
+  name :string
    label: string;
    value: number;
    color: string;
    icon: ReactElement;
+  
  }
