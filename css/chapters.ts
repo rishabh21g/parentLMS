@@ -11,30 +11,37 @@ export const useChapterStyles = () => {
       backgroundColor: colors.ui.background,
       alignItems: "center",
       paddingTop: 20,
+      paddingBlock: 10,
     },
 
     scrollContent: {
       alignItems: "center",
       paddingBottom: 30,
+      paddingBlock: 20,
     },
 
     subjectHeader: {
-      backgroundColor: colors.ui.surface,
-      borderWidth: 2,
-      borderColor: colors.neutral[400],
+      backgroundColor: colors.button.secondary.bg,
       borderRadius: 12,
       paddingVertical: 16,
       paddingHorizontal: 20,
       marginBottom: 20,
-      alignItems: "center",
-      justifyContent: "center",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+      elevation: 3,
+      marginTop: 12,
+      flexDirection: "row",
+      gap: 12,
     },
 
     subjectTitle: {
       fontSize: isSmallScreen ? 18 : 22,
       fontWeight: "700",
       color: colors.ui.textPrimary,
-      textAlign: "center",
     },
 
     chaptersHeader: {

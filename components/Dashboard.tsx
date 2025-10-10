@@ -135,20 +135,7 @@ const Dashboard = () => {
                 >
                   {subject.name}
                 </Text>
-                <View style={styles.progressBar}>
-                  <View
-                    style={[
-                      styles.progressFill,
-                      {
-                        width: `${subject.progress}%`,
-                        backgroundColor: subject.color,
-                      },
-                    ]}
-                  />
-                </View>
-                <Text style={styles.progressPercentage}>
-                  {subject.progress}%
-                </Text>
+  
               </TouchableOpacity>
             ))}
           </View>

@@ -11,7 +11,6 @@ export const useResponsiveStyles = () => {
       backgroundColor: colors.ui.background,
       alignItems: "center",
       paddingBlock: 20,
-    
     },
 
     header: {
@@ -27,11 +26,12 @@ export const useResponsiveStyles = () => {
     },
 
     statsContainer: {
+      width:width,
       marginBottom: 20,
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: colors.ui.surface,
+      backgroundColor: colors.ui.background,
       borderRadius: 12,
       padding: 16,
       shadowColor: "#000",
@@ -49,58 +49,31 @@ export const useResponsiveStyles = () => {
       textAlign: "center",
     },
 
+    // CIRCULAR CHART STYLES
     chartContainer: {
-      width: "100%",
-      gap: 10,
-    },
-
-    barContainer: {
-      marginBottom: 12,
-    },
-
-    barLabelContainer: {
       flexDirection: "row",
-      justifyContent: "space-between",
-      marginBottom: 6,
+      flexWrap: "wrap",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      marginTop: 10,
+      gap: 20,
     },
 
-    barLabel: {
-      fontSize: 13,
-      fontWeight: "600",
-      color: colors.ui.textSecondary,
-    },
-
-    barValue: {
-      fontSize: 13,
-      fontWeight: "600",
-      color: colors.ui.textPrimary,
-    },
-
-    barBackground: {
-      backgroundColor: colors.neutral[700],
-      borderRadius: 4,
-      overflow: "hidden",
-    },
-
-    barFill: {
-      height: "100%",
-      borderRadius: 4,
-    },
-
+    // AVERAGE BAR
     averageContainer: {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      marginTop: 10,
+      marginTop: 20,
+      width: "90%",
     },
-
     averageLabel: {
       fontSize: 13,
       fontWeight: "600",
       color: colors.ui.textSecondary,
       marginRight: 8,
     },
-
     averageBar: {
       height: 6,
       backgroundColor: colors.neutral[600],
@@ -108,20 +81,21 @@ export const useResponsiveStyles = () => {
       overflow: "hidden",
       flex: 1,
       marginHorizontal: 6,
+      borderWidth: 1,
+      borderColor: colors.border.strong,
     },
-
     averageProgress: {
       height: "100%",
       backgroundColor: colors.primary[500],
       borderRadius: 3,
     },
-
     averageValue: {
       fontSize: 13,
       fontWeight: "700",
       color: colors.ui.textPrimary,
     },
 
+    // CHAPTERS BUTTON
     chaptersButton: {
       backgroundColor: colors.primary[500],
       paddingVertical: 10,
@@ -129,8 +103,8 @@ export const useResponsiveStyles = () => {
       alignItems: "center",
       justifyContent: "center",
       marginBottom: 16,
+      width: "80%",
     },
-
     chaptersButtonText: {
       color: "#fff",
       fontWeight: "700",

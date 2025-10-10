@@ -1,3 +1,8 @@
+import PerformanceStat from "@/components/PerformanceStats";
+import StarRating from "@/components/StarRating";
+import { ApiResponse } from "@/types/api";
+import { PerformanceStats } from "@/types/performanceStats";
+import { UserProfile } from "@/types/user";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React, { useEffect, useState } from "react";
 import {
@@ -13,99 +18,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import profileStyles from "../../css/profile";
 import colors from "../../css/root";
 
-interface UserProfile {
-  id: string;
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  profilePicture?: string;
-}
-
-interface PerformanceStats {
-  coverage: number;
-  speed: number;
-  accuracy: number;
-  overallRating: number;
-}
-
-interface ApiResponse {
-  user: UserProfile;
-  performance: PerformanceStats;
-}
-
 const Profile: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [performanceStats, setPerformanceStats] =
     useState<PerformanceStats | null>(null);
-
   const { width } = useWindowDimensions();
   const scale = width / 375;
   const normalize = (size: number) => Math.round(size * scale);
-
-  // --- Components ---
-
-  const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
-    const stars: any[] = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-
-    for (let i = 0; i < 5; i++) {
-      let iconName: keyof typeof MaterialIcons.glyphMap = "star-outline";
-      if (i < fullStars) iconName = "star";
-      else if (i === fullStars && hasHalfStar) iconName = "star-half";
-
-      stars.push(
-        <MaterialIcons
-          key={i}
-          name={iconName}
-          size={normalize(22)}
-          color={colors.warning}
-        />
-      );
-    }
-
-    return (
-      <View
-        style={[
-          profileStyles.starContainer,
-          { gap: normalize(3) }, // override gap dynamically
-        ]}
-      >
-        {stars}
-      </View>
-    );
-  };
-
-  const PerformanceStat: React.FC<{
-    label: string;
-    value: number;
-    icon: string;
-  }> = ({ label, value, icon }) => (
-    <View
-      style={[
-        profileStyles.statCard,
-        { padding: normalize(18), borderRadius: normalize(10) },
-      ]}
-    >
-      <MaterialIcons
-        name={icon as any}
-        size={normalize(26)}
-        color={colors.primary[400]}
-        style={profileStyles.statIcon}
-      />
-      <Text style={[profileStyles.statLabel, { fontSize: normalize(14) }]}>
-        {label}
-      </Text>
-      <Text style={[profileStyles.statValue, { fontSize: normalize(22) }]}>
-        {value}%
-      </Text>
-      <View style={profileStyles.progressBar}>
-        <View style={[profileStyles.progressFill, { width: `${value}%` }]} />
-      </View>
-    </View>
-  );
-
   // --- Fetch user data ---
   const fetchUserProfile = async (): Promise<void> => {
     try {
@@ -126,7 +46,7 @@ const Profile: React.FC = () => {
       };
       setUserProfile(dummyData.user);
       setPerformanceStats(dummyData.performance);
-    } catch (err) {
+    } catch (err: unknown) {
       Alert.alert("Error", "Failed to load profile data");
     } finally {
       setLoading(false);

@@ -1,7 +1,11 @@
+import CircleProgress from "@/components/CircleProgress";
 import { useResponsiveStyles } from "@/css/subject";
 import dummySubjects from "@/data/dummydata";
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router, useLocalSearchParams } from "expo-router";
-import React from "react";
+import React, { ReactElement } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -29,14 +33,44 @@ const Subject: React.FC = () => {
     );
   }
 
-  const overallData = [
-    { label: "Accuracy", value: subject.overall.accuracy, color: "#EF4444" },
-    { label: "Speed", value: subject.overall.speed, color: "#10B981" },
-    { label: "Coverage", value: subject.overall.coverage, color: "#60A5FA" },
+interface StatItem {
+  label: string;
+  value: number;
+  color: string;
+  icon: ReactElement;
+}
+
+  const overallData: StatItem[] = [
+    {
+      label: "Accuracy",
+      value: subject.overall.accuracy,
+      color: "#EF4444",
+      icon: <FontAwesome name="check-circle" size={16} color={"#EF4444"} />,
+    },
+    {
+      label: "Speed",
+      value: subject.overall.speed,
+      color: "#10B981",
+      icon: (
+        <MaterialCommunityIcons
+          name="speedometer"
+          size={16}
+          color={"#10B981"}
+        />
+      ),
+    },
+    {
+      label: "Coverage",
+      value: subject.overall.coverage,
+      color: "#60A5FA",
+      icon: <FontAwesome name="tasks" size={16} color={"#60A5FA"} />,
+    },
     {
       label: "Comparison",
       value: subject.overall.comparison,
       color: "#F59E0B",
+
+      icon: <Entypo name="area-graph" size={16} color="#F59E0B" />,
     },
   ];
 
@@ -48,11 +82,9 @@ const Subject: React.FC = () => {
       4
   );
 
-  const chartWidth = width - 80;
-  const barHeight = 40;
-
   return (
     <SafeAreaView style={[styles.container, { width, height }]}>
+      {/* Profile Header */}
       <TouchableOpacity onPress={() => router.push("/profile")}>
         <View style={[profile.header]}>
           <View style={profile.profileSection}>
@@ -66,57 +98,44 @@ const Subject: React.FC = () => {
           </View>
         </View>
       </TouchableOpacity>
+
+      {/* Subject Name */}
       <View style={styles.header}>
-        <Text style={[styles.subjectTitle, { width: chartWidth }]}>
-          {subject.name}
-        </Text>
+        <Text style={styles.subjectTitle}>{subject.name}</Text>
       </View>
 
-      <View style={[styles.statsContainer, { width: chartWidth }]}>
+      {/* Circular Progress Charts */}
+      <View style={styles.statsContainer}>
         <Text style={styles.sectionTitle}>Overall Stats</Text>
 
         <View style={styles.chartContainer}>
-          {overallData.map((item) => (
-            <View
-              key={item.label}
-              style={[styles.barContainer, { width: chartWidth - 40 }]}
-            >
-              <View style={styles.barLabelContainer}>
-                <Text style={styles.barLabel}>{item.label}</Text>
-                <Text style={styles.barValue}>{item.value}%</Text>
-              </View>
-              <View
-                style={[
-                  styles.barBackground,
-                  { width: chartWidth - 120, height: barHeight },
-                ]}
-              >
-                <View
-                  style={[
-                    styles.barFill,
-                    {
-                      width: `${item.value}%`,
-                      height: barHeight,
-                      backgroundColor: item.color,
-                    },
-                  ]}
-                />
-              </View>
+          {overallData.map((data, index) => (
+            <View key={index}>
+              <CircleProgress
+                percentage={data.value}
+                color={data.color}
+                label={data.label}
+                icon = {data.icon}
+
+              />
+              
             </View>
           ))}
         </View>
 
-        <View style={[styles.averageContainer, { width: chartWidth - 40 }]}>
+        {/* Total Average */}
+        <View style={styles.averageContainer}>
           <Text style={styles.averageLabel}>Total Average:</Text>
-          <View style={[styles.averageBar, { width: chartWidth - 160 }]}>
+          <View style={styles.averageBar}>
             <View style={[styles.averageProgress, { width: `${average}%` }]} />
           </View>
           <Text style={styles.averageValue}>{average}%</Text>
         </View>
       </View>
 
+      {/* Chapters Button */}
       <TouchableOpacity
-        style={[styles.chaptersButton, { width: chartWidth }]}
+        style={styles.chaptersButton}
         onPress={() => router.push(`/subjects/chapters/${subject.id}`)}
       >
         <Text style={styles.chaptersButtonText}>Chapters</Text>
