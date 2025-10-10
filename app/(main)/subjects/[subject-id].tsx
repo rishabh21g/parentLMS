@@ -1,11 +1,12 @@
 import CircleProgress from "@/components/CircleProgress";
 import { useResponsiveStyles } from "@/css/subject";
 import dummySubjects from "@/data/dummydata";
+import { StatItem } from "@/types/performanceStats";
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router, useLocalSearchParams } from "expo-router";
-import React, { ReactElement } from "react";
+import React from "react";
 import {
   Text,
   TouchableOpacity,
@@ -32,14 +33,6 @@ const Subject: React.FC = () => {
       </View>
     );
   }
-
-interface StatItem {
-  label: string;
-  value: number;
-  color: string;
-  icon: ReactElement;
-}
-
   const overallData: StatItem[] = [
     {
       label: "Accuracy",
@@ -115,10 +108,8 @@ interface StatItem {
                 percentage={data.value}
                 color={data.color}
                 label={data.label}
-                icon = {data.icon}
-
+                icon={data.icon}
               />
-              
             </View>
           ))}
         </View>

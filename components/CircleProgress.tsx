@@ -8,11 +8,10 @@ const CircleProgress: React.FC<{
   label: string;
   icon: React.ReactElement;
 }> = ({ percentage, color, label ,icon }) => {
-  
   // Circle dimensions
   const size = 150;
   const strokeWidth = 10;
-  const radius = (size - strokeWidth ) / 2; // gives a small inner gap
+  const radius = (size - strokeWidth ) / 2; 
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = circumference;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
