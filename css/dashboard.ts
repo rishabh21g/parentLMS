@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
     color: colors.ui.textPrimary,
   },
   statLabel: {
-    fontSize: 12,
+    fontSize: 20,
+    fontWeight:"600",
     color: colors.ui.muted,
     marginTop: 2,
   },
@@ -200,10 +201,11 @@ const styles = StyleSheet.create({
     minWidth: 1, // Ensure it's visible even at low percentages
   },
   subjectProgressText: {
-    fontSize: 10,
+    fontSize: 14,
     color: colors.ui.muted,
     minWidth: 30,
     textAlign: 'right',
+    fontWeight: "700",
   },
 });
 export default styles

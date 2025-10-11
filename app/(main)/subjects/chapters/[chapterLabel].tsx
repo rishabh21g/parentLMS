@@ -56,7 +56,7 @@ const ChapterLable = () => {
               
               {/* Metric and Percentage */}
               <Text style={styles.metricText}>
-                {chapterLabel} : {percentage}%
+                {chapterLabel.toUpperCase()} : {percentage}%
               </Text>
               
               {/* Progress Bar */}
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: colors.ui.textPrimary,
-    fontSize: 18,
+    fontSize: 26,
     fontWeight: '600',
   },
   chapterCard: {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   chapterNameText: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: '700',
     marginBottom: 4,
   },

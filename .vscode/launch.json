@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+        "args": [
+            "--extensionDevelopmentPath=${workspaceFolder}"
+        ],
+        "name": "Launch Extension",
+        "outFiles": [
+            "${workspaceFolder}/out/**/*.js"
+        ],
+        "preLaunchTask": "npm",
+        "request": "launch",
+        "type": "extensionHost"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run expo-internal",
+      "runtimeExecutable": "expo-internal",
+      "cwd": "${workspaceFolder}/node_modules/expo",
+      "args": []
+    },
+    {
+      "type": "radon-ide",
+      "request": "launch",
+      "name": "Radon IDE panel"
+    }
+  ]
+}
