@@ -12,7 +12,7 @@ const Subject: React.FC = () => {
   const id = Number(subjectID);
   const styles = useResponsiveStyles();
   const { width, height } = useWindowDimensions();
-  const subject: SubjectType | undefined = dummySubjects.find(
+  const subject: SubjectType | any = dummySubjects.find(
     (s) => s.id === id
   );
 

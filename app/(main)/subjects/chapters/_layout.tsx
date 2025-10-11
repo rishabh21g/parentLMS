@@ -8,7 +8,7 @@ const ChapterLayout = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="[chapter-label]" options={{ title: "Chapters" }} />
+      <Stack.Screen name="[chapterLabel]" options={{ title: "Chapters" }} />
     </Stack>
   );
 };

@@ -19,8 +19,8 @@ export const useResponsiveStyles = () => {
       marginTop: 25,
     },
     subjectTitle: {
-      fontSize: isSmallScreen ? 20 : 24,
-      fontWeight: "700",
+      fontSize: isSmallScreen ? 28 : 34,
+      fontWeight: "900",
       color: colors.ui.textPrimary,
       textAlign: "center",
     },
@@ -38,9 +38,9 @@ export const useResponsiveStyles = () => {
     },
 
     sectionTitle: {
-      fontSize: 16,
+      fontSize: 26,
       fontWeight: "700",
-      color: colors.ui.textPrimary,
+      color: colors.secondary[200],
       marginBottom: 12,
       textAlign: "center",
     },

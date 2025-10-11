@@ -1,51 +1,73 @@
 import colors from "@/css/root";
-import { Text, View } from "react-native";
+import React from "react";
+import { Text, View, useWindowDimensions } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
-const CircleProgress: React.FC<{
+interface CircleProgressProps {
   percentage: number;
   color: string;
   label: string;
   icon: React.ReactElement;
-}> = ({ percentage, color, label ,icon }) => {
-  // Circle dimensions
-  const size = 120;
-  const strokeWidth = 10;
-  const radius = (size - strokeWidth ) / 2; 
+  size: number;
+}
+
+const CircleProgress: React.FC<CircleProgressProps> = ({
+  percentage,
+  color,
+  label,
+  icon,
+  size,
+}) => {
+  const { width } = useWindowDimensions();
+
+  // Responsive scaling
+  const scale = width < 360 ? 0.8 : width < 420 ? 0.9 : 1;
+  const circleSize = size * scale;
+  const strokeWidth = 10 * scale;
+  const radius = (circleSize - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const strokeDasharray = circumference;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
+  const fontSize = 20 * scale;
+  const labelFontSize = 15 * scale;
+
   return (
-    <View  style={{ alignItems: "center", margin: 10 , alignContent:"center"}}>
-      {/* Circle */}
-      <View >
-        <Svg width={size} height={size}>
-          {/* Background track */}
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        marginVertical: 12 * scale,
+        marginHorizontal: 8 * scale,
+      }}
+    >
+      {/* Circular progress */}
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <Svg width={circleSize} height={circleSize}>
+          {/* Background circle */}
           <Circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={circleSize / 2}
+            cy={circleSize / 2}
             r={radius}
-            stroke={colors.neutral[700]}
+            stroke={colors.neutral[600]}
             strokeWidth={strokeWidth}
             fill="transparent"
           />
-          {/* Progress arc */}
+          {/* Foreground progress arc */}
           <Circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={circleSize / 2}
+            cy={circleSize / 2}
             r={radius}
             stroke={color}
             strokeWidth={strokeWidth}
             fill="transparent"
-            strokeDasharray={strokeDasharray}
+            strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            transform={`rotate(-90 ${size / 2} ${size / 2})`}
+            transform={`rotate(-90 ${circleSize / 2} ${circleSize / 2})`}
           />
         </Svg>
 
-        {/* Percentage text in center */}
+        {/* Center text */}
         <View
           style={{
             position: "absolute",
@@ -60,8 +82,9 @@ const CircleProgress: React.FC<{
           <Text
             style={{
               color: colors.ui.textPrimary,
-              fontSize: 24,
-              fontWeight: "700",
+              fontSize,
+              fontWeight: "900",
+              textAlign: "center",
             }}
           >
             {percentage}%
@@ -69,20 +92,28 @@ const CircleProgress: React.FC<{
         </View>
       </View>
 
-      {/* Label below circle */}
-      <View style={{ alignItems: "center", marginTop: 8 }}>
-        <View style={{ alignItems: "center", flexDirection: "row", gap:10 }}>
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "600",
-              color: colors.ui.textSecondary,
-            }}
-          >
-            {label}
-          </Text>
-          {icon}
-        </View>
+      {/* Label + icon below circle */}
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 10 * scale,
+          flexDirection: "row",
+          gap: 6 * scale,
+          flexWrap: "wrap",
+        }}
+      >
+        <Text
+          style={{
+            fontSize: labelFontSize,
+            fontWeight: "800",
+            color: colors.ui.textSecondary,
+            textAlign: "center",
+          }}
+        >
+          {label}
+        </Text>
+        {icon}
       </View>
     </View>
   );
