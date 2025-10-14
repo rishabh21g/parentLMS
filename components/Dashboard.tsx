@@ -25,7 +25,6 @@ const Dashboard = () => {
     subjects.reduce((sum, subject: any) => sum + subject.progress, 0) /
       subjects.length
   );
- 
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -186,17 +185,17 @@ const Dashboard = () => {
                     <View
                       style={[
                         styles.subjectProgressFill,
-                        { 
+                        {
                           width: `${subject.overall.coverage}%`,
-                          backgroundColor: subject.color 
+                          backgroundColor: subject.color,
                         },
                       ]}
                     />
                   </View>
-                  <Text style={styles.subjectProgressText}>
-                    {subject.overall.coverage}%
-                  </Text>
                 </View>
+                  <Text style={styles.subjectProgressText}>
+                    Coverage: {subject.overall.coverage}%
+                  </Text>
               </TouchableOpacity>
             ))}
           </View>

@@ -189,8 +189,8 @@ const styles = StyleSheet.create({
   },
   subjectProgressBackground: {
     flex: 1,
-    height: 4, // Thin height
-    backgroundColor: colors.neutral[600],
+    height: 5,
+    backgroundColor: colors.neutral[500],
     borderRadius: 2,
     marginRight: 8,
     overflow: 'hidden',
@@ -201,10 +201,11 @@ const styles = StyleSheet.create({
     minWidth: 1, // Ensure it's visible even at low percentages
   },
   subjectProgressText: {
-    fontSize: 14,
+    marginTop: 6,
+    fontSize: 13,
     color: colors.ui.muted,
     minWidth: 30,
-    textAlign: 'right',
+   textAlign:"center",
     fontWeight: "700",
   },
 });

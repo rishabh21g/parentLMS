@@ -1,0 +1,10 @@
+node_modules
+.git
+.expo
+.vscode
+.env
+dist
+build
+android
+ios
+.expo-shared
