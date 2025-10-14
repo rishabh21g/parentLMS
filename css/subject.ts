@@ -15,7 +15,6 @@ export const useResponsiveStyles = () => {
 
     header: {
       alignItems: "center",
-      marginBottom: 20,
       marginTop: 25,
     },
     subjectTitle: {
@@ -26,15 +25,14 @@ export const useResponsiveStyles = () => {
     },
 
     statsContainer: {
-      width:width,
+      width: width,
       marginBottom: 20,
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: colors.ui.background,
       borderRadius: 12,
-      padding: 16,
-    
+      padding: 12,
     },
 
     sectionTitle: {

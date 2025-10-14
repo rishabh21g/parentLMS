@@ -12,9 +12,7 @@ const Subject: React.FC = () => {
   const id = Number(subjectID);
   const styles = useResponsiveStyles();
   const { width, height } = useWindowDimensions();
-  const subject: SubjectType | any = dummySubjects.find(
-    (s) => s.id === id
-  );
+  const subject: SubjectType | any = dummySubjects.find((s) => s.id === id);
 
   if (!subject) {
     return (
@@ -30,13 +28,9 @@ const Subject: React.FC = () => {
       <View style={styles.header}>
         <Text style={styles.subjectTitle}>{subject.name}</Text>
       </View>
-
       {/* Overall Stats */}
       <View style={styles.statsContainer}>
-        <Text style={styles.sectionTitle}>Overall Stats</Text>
-        <View style={styles.chartContainer}>
-          <OverallData subject={subject} />
-        </View>
+        <OverallData subject={subject} />
       </View>
     </SafeAreaView>
   );
